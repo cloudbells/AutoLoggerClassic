@@ -8,7 +8,9 @@
 # Load libraries.
 Libraries\LibStub\LibStub.lua
 Libraries\CallbackHandler-1.0\CallbackHandler-1.0.lua
-Libraries\AceGUI-3.0\AceGUI-3.0.xml
+Libraries\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libraries\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
 # Load core files.
 AutoCombatLogger.lua
+AutoCombatLogger.xml
