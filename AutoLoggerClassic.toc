@@ -1,9 +1,9 @@
 ## Interface: 11302
-## Title: AutoCombatLogger
+## Title: AutoLoggerClassic
 ## Notes: Automatically triggers combat logging on and off in raids and/or dungeons.
 ## Author: cloudbells
-## Version: 1.0-alpha
-## SavedVariablesPerCharacter: ACLOptions
+## Version: @project-version@
+## SavedVariablesPerCharacter: ALCOptions
 
 # Load libraries.
 Libraries\LibStub\LibStub.lua
@@ -12,5 +12,5 @@ Libraries\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libraries\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
 # Load core files.
-AutoCombatLogger.lua
-AutoCombatLogger.xml
+AutoLoggerClassic.lua
+AutoLoggerClassic.xml

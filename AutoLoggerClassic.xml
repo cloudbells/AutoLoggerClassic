@@ -1,11 +1,11 @@
 <Ui>
-    <FontString name="AutoCombatLoggerStringTemplate" font="Fonts/FRIZQT__.ttf" outline="NORMAL" justifyH="LEFT" virtual="true">
+    <FontString name="AutoLoggerClassicStringTemplate" font="Fonts/FRIZQT__.ttf" outline="NORMAL" justifyH="LEFT" virtual="true">
         <Color a="1" r="1" g="0.82" b="0" />
         <FontHeight>
             <AbsValue val="12" />
         </FontHeight>
     </FontString>
-    <Frame name="AutoCombatLoggerFrame" parent="UIParent" clampedToScreen="true" enableMouse="true" movable="true" frameStrata="DIALOG">
+    <Frame name="AutoLoggerClassicFrame" parent="UIParent" clampedToScreen="true" enableMouse="true" movable="true" frameStrata="DIALOG">
         <Size x="610" y="358" />
         <Anchors>
             <Anchor point="CENTER" />
@@ -31,17 +31,17 @@
                         <Anchor point="TOP" x="0" y="12" />
                     </Anchors>
                 </Texture>
-                <FontString name="$parentTitleString" inherits="AutoCombatLoggerStringTemplate" text="AutoCombatLogger">
+                <FontString name="$parentTitleString" inherits="AutoLoggerClassicStringTemplate" text="AutoLoggerClassic">
                     <Anchors>
                         <Anchor point="TOP" x="0" y="-1" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentDungeonsString" inherits="AutoCombatLoggerStringTemplate" text="Dungeons">
+                <FontString name="$parentDungeonsString" inherits="AutoLoggerClassicStringTemplate" text="Dungeons">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="20" y="-20" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentRaidsString" inherits="AutoCombatLoggerStringTemplate" text="Raids">
+                <FontString name="$parentRaidsString" inherits="AutoLoggerClassicStringTemplate" text="Raids">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="20" y="-250" />
                     </Anchors>
@@ -50,7 +50,7 @@
         </Layers>
         <Scripts>
             <OnLoad>
-                AutoCombatLogger_OnLoad(self)
+                AutoLoggerClassic_OnLoad(self)
             </OnLoad>
             <OnDragStart>
                 self:StartMoving()
@@ -59,7 +59,7 @@
                 self:StopMovingOrSizing()
             </OnDragStop>
             <OnEvent>
-                AutoCombatLogger_OnEvent(self, event, ...)
+                AutoLoggerClassic_OnEvent(self, event, ...)
             </OnEvent>
         </Scripts>
     </Frame>

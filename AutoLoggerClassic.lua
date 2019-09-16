@@ -1,7 +1,7 @@
 -- TODO
 -- DISABLE LOGGING WHEN GOING OUTSIDE DUNGEON ONLY IF PLAYER WASNT LOGGING BEFORE AND ONLY IF PLAYER ISNT A GHOST
 
-local _, AutoCombatLogger = ...
+local _, AutoLoggerClassic = ...
 
 -- UI variables.
 local X_START = 16
@@ -45,29 +45,29 @@ local raids = {
 
 -- Shows or hides the addon.
 local function toggleFrame()
-    if AutoCombatLoggerFrame:IsVisible() then
-        AutoCombatLoggerFrame:Hide()
+    if AutoLoggerClassicFrame:IsVisible() then
+        AutoLoggerClassicFrame:Hide()
     else
-        AutoCombatLoggerFrame:Show()
+        AutoLoggerClassicFrame:Show()
     end
 end
 
 -- Shows or hides the minimap button.
 local function toggleMinimapButton()
-    ACLOptions.minimapTable.hide = not ACLOptions.minimapTable.hide
-    if ACLOptions.minimapTable.hide then
-        minimapIcon:Hide("AutoCombatLogger")
-        print("|cFFFFFF00AutoCombatLogger:|r Minimap button hidden. Type /acl minimap to show it again.")
+    ALCOptions.minimapTable.hide = not ALCOptions.minimapTable.hide
+    if ALCOptions.minimapTable.hide then
+        minimapIcon:Hide("AutoLoggerClassic")
+        print("|cFFFFFF00AutoLoggerClassic:|r Minimap button hidden. Type /ALC minimap to show it again.")
     else
-        minimapIcon:Show("AutoCombatLogger")
+        minimapIcon:Show("AutoLoggerClassic")
     end
 end
 
 -- Initializes the minimap button.
 local function initMinimapButton()
-    local obj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("AutoCombatLogger", {
+    local obj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("AutoLoggerClassic", {
         type = "launcher",
-        text = "AutoCombatLogger",
+        text = "AutoLoggerClassic",
         icon = "Interface/ICONS/Trade_Engineering",
         OnClick = function(self, button)
             if button == "LeftButton" then
@@ -78,7 +78,7 @@ local function initMinimapButton()
         end,
         OnEnter = function(self)
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-            GameTooltip:AddLine("|cFFFFFFFFAutoCombatLogger|r")
+            GameTooltip:AddLine("|cFFFFFFFFAutoLoggerClassic|r")
             GameTooltip:AddLine("Left click to open options.")
             GameTooltip:AddLine("Right click to hide this minimap button.")
             GameTooltip:Show()
@@ -87,14 +87,14 @@ local function initMinimapButton()
             GameTooltip:Hide()
         end
     })
-    minimapIcon:Register("AutoCombatLogger", obj, ACLOptions.minimapTable)
+    minimapIcon:Register("AutoLoggerClassic", obj, ALCOptions.minimapTable)
 end
 
 -- Sets slash commands.
 local function initSlash()
-    SLASH_AUTOCOMBATLOGGER1 = "/autocombatlogger"
-    SLASH_AUTOCOMBATLOGGER2 = "/acl"
-    SlashCmdList["AUTOCOMBATLOGGER"] = function(msg)
+    SLASH_AutoLoggerClassic1 = "/AutoLoggerClassic"
+    SLASH_AutoLoggerClassic2 = "/alc"
+    SlashCmdList["AutoLoggerClassic"] = function(msg)
         msg = msg:lower()
         if msg == "minimap" then
             toggleMinimapButton()
@@ -110,16 +110,16 @@ local function initCheckButtons()
     local index = 1
     for k, v in pairs(dungeons) do
         -- Checkbuttons.
-        local checkButton = CreateFrame("CheckButton", nil, AutoCombatLoggerFrame, "UICheckButtonTemplate")
+        local checkButton = CreateFrame("CheckButton", nil, AutoLoggerClassicFrame, "UICheckButtonTemplate")
         local x = X_START + X_SPACING * ((index - 1) % BUTTONS_PER_ROW)
         local y = Y_SPACING * math.ceil(index / BUTTONS_PER_ROW) - 10
         checkButton:SetPoint("TOPLEFT", x, y)
-        checkButton:SetScript("OnClick", AutoCombatLoggerCheckButton_OnClick)
+        checkButton:SetScript("OnClick", AutoLoggerClassicCheckButton_OnClick)
         checkButton.instance = k
-        checkButton:SetChecked(ACLOptions.instances[k])
+        checkButton:SetChecked(ALCOptions.instances[k])
         buttons[#buttons + 1] = checkButton
         -- Strings.
-        local string = AutoCombatLoggerFrame:CreateFontString(nil, "ARTWORK", "AutoCombatLoggerStringTemplate")
+        local string = AutoLoggerClassicFrame:CreateFontString(nil, "ARTWORK", "AutoLoggerClassicStringTemplate")
         string:SetPoint("LEFT", checkButton, "RIGHT", 5, 0)
         string:SetText(v)
         index = index + 1
@@ -128,16 +128,16 @@ local function initCheckButtons()
     index = 1
     for k, v in pairs(raids) do
         -- Checkbuttons.
-        local checkButton = CreateFrame("CheckButton", nil, AutoCombatLoggerFrame, "UICheckButtonTemplate")
+        local checkButton = CreateFrame("CheckButton", nil, AutoLoggerClassicFrame, "UICheckButtonTemplate")
         local x = X_START + X_SPACING * ((index - 1) % BUTTONS_PER_ROW)
         local y = Y_SPACING * math.ceil(index / BUTTONS_PER_ROW) - 240
         checkButton:SetPoint("TOPLEFT", x, y)
-        checkButton:SetScript("OnClick", AutoCombatLoggerCheckButton_OnClick)
+        checkButton:SetScript("OnClick", AutoLoggerClassicCheckButton_OnClick)
         checkButton.instance = k
-        checkButton:SetChecked(ACLOptions.instances[k])
+        checkButton:SetChecked(ALCOptions.instances[k])
         buttons[#buttons + 1] = checkButton
         -- Strings.
-        local string = AutoCombatLoggerFrame:CreateFontString(nil, "ARTWORK", "AutoCombatLoggerStringTemplate")
+        local string = AutoLoggerClassicFrame:CreateFontString(nil, "ARTWORK", "AutoLoggerClassicStringTemplate")
         string:SetPoint("LEFT", checkButton, "RIGHT", 5, 0)
         string:SetText(v)
         index = index + 1
@@ -149,28 +149,28 @@ local function init()
     initMinimapButton()
     initSlash()
     initCheckButtons()
-    tinsert(UISpecialFrames, AutoCombatLoggerFrame:GetName())
+    tinsert(UISpecialFrames, AutoLoggerClassicFrame:GetName())
 end
 
 -- Toggles logging if player is not logging and is in the right instance.
 local function toggleLogging()
-    if not LoggingCombat() and ACLOptions.instances[select(8, GetInstanceInfo())] then
+    if not LoggingCombat() and ALCOptions.instances[select(8, GetInstanceInfo())] then
         LoggingCombat(true)
-        print("|cFFFFFF00AutoCombatLogger|r: Combat logging enabled.")
-    elseif LoggingCombat() and not ACLOptions.instances[select(8, GetInstanceInfo())] then
+        print("|cFFFFFF00AutoLoggerClassic|r: Combat logging enabled.")
+    elseif LoggingCombat() and not ALCOptions.instances[select(8, GetInstanceInfo())] then
         LoggingCombat(false)
-        print("|cFFFFFF00AutoCombatLogger|r: Combat logging disabled.")
+        print("|cFFFFFF00AutoLoggerClassic|r: Combat logging disabled.")
     end
 end
 
 -- Called when player clicks a checkbutton.
-function AutoCombatLoggerCheckButton_OnClick(self)
-    ACLOptions.instances[self.instance] = not ACLOptions.instances[self.instance]
+function AutoLoggerClassicCheckButton_OnClick(self)
+    ALCOptions.instances[self.instance] = not ALCOptions.instances[self.instance]
     toggleLogging()
 end
 
 -- Called when addon has been loaded.
-function AutoCombatLogger_OnLoad(self)
+function AutoLoggerClassic_OnLoad(self)
     self:RegisterForDrag("LeftButton")
     self:RegisterEvent("ADDON_LOADED")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -178,12 +178,12 @@ function AutoCombatLogger_OnLoad(self)
 end
 
 -- Handles all events.
-function AutoCombatLogger_OnEvent(self, event, ...)
-    if event == "ADDON_LOADED" and ... == "AutoCombatLogger" then
-        ACLOptions = ACLOptions or {}
-        ACLOptions.minimapTable = ACLOptions.minimapTable or {}
-        if not ACLOptions.instances then
-            ACLOptions.instances = {
+function AutoLoggerClassic_OnEvent(self, event, ...)
+    if event == "ADDON_LOADED" and ... == "AutoLoggerClassic" then
+        ALCOptions = ALCOptions or {}
+        ALCOptions.minimapTable = ALCOptions.minimapTable or {}
+        if not ALCOptions.instances then
+            ALCOptions.instances = {
                     [48] = true,
                     [230] = true,
                     [229] = true,
@@ -212,12 +212,12 @@ function AutoCombatLogger_OnEvent(self, event, ...)
                     [309] = true
             }
         end
-        print("|cFFFFFF00AutoCombatLogger|r loaded! Type /acl to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
+        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
     elseif event == "ZONE_CHANGED_NEW_AREA" then
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
         init()
-        AutoCombatLoggerFrame:Hide()
+        AutoLoggerClassicFrame:Hide()
         toggleLogging()
         self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     end
