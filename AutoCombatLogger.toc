@@ -1,0 +1,14 @@
+## Interface: 11302
+## Title: AutoCombatLogger
+## Notes: Automatically triggers combat logging on and off in raids and/or dungeons.
+## Author: cloudbells
+## Version: 1.0-alpha
+## SavedVariablesPerCharacter: ACLOptions
+
+# Load libraries.
+Libraries\LibStub\LibStub.lua
+Libraries\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libraries\AceGUI-3.0\AceGUI-3.0.xml
+
+# Load core files.
+AutoCombatLogger.lua
