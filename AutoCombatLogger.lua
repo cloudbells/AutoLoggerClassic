@@ -1,8 +1,5 @@
---[[
-                print(LoggingCombat())
-        print(LoggingCombat(true))
-        - getinstanceinfo()
---]]
+-- TODO
+-- DISABLE LOGGING WHEN GOING OUTSIDE DUNGEON ONLY IF PLAYER WASNT LOGGING BEFORE AND ONLY IF PLAYER ISNT A GHOST
 
 local _, AutoCombatLogger = ...
 
@@ -16,34 +13,34 @@ local BUTTONS_PER_ROW = 3
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local dungeons = {
-    [719] = "Blackfathom Deeps",
-    [1584] = "Blackrock Depths",
-    [1583] = "Blackrock Spire",
-    [2557] = "Dire Maul",
-    [721] = "Gnomeregan",
-    [2100] = "Maraudon",
-    [2437] = "Ragefire Chasm",
-    [722] = "Razorfen Downs",
-    [491] = "Razorfen Kraul",
-    [796] = "Scarlet Monastery",
-    [2057] = "Scholomance",
-    [209] = "Shadowfang Keep",
-    [2017] = "Stratholme",
-    [1477] = "Temple of Atal'Hakkar",
-    [1581] = "The Deadmines",
-    [717] = "The Stockade",
-    [1337] = "Uldaman",
-    [718] = "Wailing Caverns",
-    [1176] = "Zul'Farrak"
+    [48] = "Blackfathom Deeps",
+    [230] = "Blackrock Depths",
+    [229] = "Blackrock Spire",
+    [36] = "Deadmines",
+    [429] = "Dire Maul",
+    [90] = "Gnomeregan",
+    [349] = "Maraudon",
+    [389] = "Ragefire Chasm",
+    [129] = "Razorfen Downs",
+    [47] = "Razorfen Kraul",
+    [189] = "Scarlet Monastery",
+    [289] = "Scholomance",
+    [33] = "Shadowfang Keep",
+    [34] = "Stormwind Stockade",
+    [329] = "Stratholme",
+    [109] = "Sunken Temple",
+    [70] = "Uldaman",
+    [43] = "Wailing Caverns",
+    [209] = "Zul'Farrak"
 }
 local raids = {
-    [2677] = "Blackwing Lair",
-    [2717] = "Molten Core",
-    [3456] = "Naxxramas",
-    [2159] = "Onyxia's Lair",
-    [3429] = "AQ20",
-    [3428] = "AQ40",
-    [1977] = "Zul'Gurub"
+    [509] = "AQ20",
+    [531] = "AQ40",
+    [469] = "Blackwing Lair",
+    [409] = "Molten Core",
+    [533] = "Naxxramas",
+    [249] = "Onyxia's Lair",
+    [309] = "Zul'Gurub"
 }
 
 -- Shows or hides the addon.
@@ -155,9 +152,21 @@ local function init()
     tinsert(UISpecialFrames, AutoCombatLoggerFrame:GetName())
 end
 
+-- Toggles logging if player is not logging and is in the right instance.
+local function toggleLogging()
+    if not LoggingCombat() and ACLOptions.instances[select(8, GetInstanceInfo())] then
+        LoggingCombat(true)
+        print("|cFFFFFF00AutoCombatLogger|r: Combat logging enabled.")
+    elseif LoggingCombat() and not ACLOptions.instances[select(8, GetInstanceInfo())] then
+        LoggingCombat(false)
+        print("|cFFFFFF00AutoCombatLogger|r: Combat logging disabled.")
+    end
+end
+
 -- Called when player clicks a checkbutton.
 function AutoCombatLoggerCheckButton_OnClick(self)
     ACLOptions.instances[self.instance] = not ACLOptions.instances[self.instance]
+    toggleLogging()
 end
 
 -- Called when addon has been loaded.
@@ -175,39 +184,41 @@ function AutoCombatLogger_OnEvent(self, event, ...)
         ACLOptions.minimapTable = ACLOptions.minimapTable or {}
         if not ACLOptions.instances then
             ACLOptions.instances = {
-                [719] = true,
-                [1584] = true,
-                [1583] = true,
-                [2557] = true,
-                [721] = true,
-                [2100] = true,
-                [2437] = true,
-                [722] = true,
-                [491] = true,
-                [796] = true,
-                [2057] = true,
-                [209] = true,
-                [2017] = true,
-                [1477] = true,
-                [1581] = true,
-                [717] = true,
-                [1337] = true,
-                [718] = true,
-                [1176] = true,
-                [2677] = true,
-                [2717] = true,
-                [3456] = true,
-                [2159] = true,
-                [3429] = true,
-                [3428] = true,
-                [1977] = true
+                    [48] = true,
+                    [230] = true,
+                    [229] = true,
+                    [36] = true,
+                    [429] = true,
+                    [90] = true,
+                    [349] = true,
+                    [389] = true,
+                    [129] = true,
+                    [47] = true,
+                    [189] = true,
+                    [289] = true,
+                    [33] = true,
+                    [34] = true,
+                    [329] = true,
+                    [109] = true,
+                    [70] = true,
+                    [43] = true,
+                    [209] = true,
+                    [509] = true,
+                    [531] = true,
+                    [469] = true,
+                    [409] = true,
+                    [533] = true,
+                    [249] = true,
+                    [309] = true
             }
         end
-        -- ACLOptions.instances = ACLOptions.instances or {}
-        print("|cFFFFFF00AutoCombatLogger|r loaded! Type /acl to toggle options. Remember to enable advanced combat logging in Interface > Network.")
+        print("|cFFFFFF00AutoCombatLogger|r loaded! Type /acl to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
+    elseif event == "ZONE_CHANGED_NEW_AREA" then
+        toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
         init()
         AutoCombatLoggerFrame:Hide()
+        toggleLogging()
         self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     end
 end
