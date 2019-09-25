@@ -6,7 +6,7 @@
         </FontHeight>
     </FontString>
     <Frame name="AutoLoggerClassicFrame" parent="UIParent" clampedToScreen="true" enableMouse="true" movable="true" frameStrata="DIALOG">
-        <Size x="610" y="358" />
+        <Size x="544" y="130" />
         <Anchors>
             <Anchor point="CENTER" />
         </Anchors>
@@ -26,7 +26,7 @@
         <Layers>
             <Layer level="OVERLAY">
                 <Texture name="$parentTitleTexture" file="Interface/DialogFrame/UI-DialogBox-Header">
-                    <Size x="300" y="60" />
+                    <Size x="300" y="62" />
                     <Anchors>
                         <Anchor point="TOP" x="0" y="12" />
                     </Anchors>
@@ -36,14 +36,9 @@
                         <Anchor point="TOP" x="0" y="-1" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentDungeonsString" inherits="AutoLoggerClassicStringTemplate" text="Dungeons">
-                    <Anchors>
-                        <Anchor point="TOPLEFT" x="20" y="-20" />
-                    </Anchors>
-                </FontString>
                 <FontString name="$parentRaidsString" inherits="AutoLoggerClassicStringTemplate" text="Raids">
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="20" y="-250" />
+                        <Anchor point="TOPLEFT" x="20" y="-20" />
                     </Anchors>
                 </FontString>
             </Layer>
