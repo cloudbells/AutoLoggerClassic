@@ -10,7 +10,6 @@ local BUTTONS_PER_ROW = 3
 
 -- Variables.
 local minimapIcon = LibStub("LibDBIcon-1.0")
-local timer
 local buttons = {}
 local raids = {
     [509] = "AQ20",
