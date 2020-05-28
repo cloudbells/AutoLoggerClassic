@@ -1,6 +1,6 @@
-## Interface: 11302
+## Interface: 11304
 ## Title: AutoLoggerClassic
-## Notes: Automatically triggers combat logging on and off in raids and/or dungeons.
+## Notes: Automatically triggers combat logging on and off in raids.
 ## Author: cloudbells
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ALCOptions
