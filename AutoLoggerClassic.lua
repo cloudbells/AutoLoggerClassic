@@ -11,8 +11,7 @@ local BUTTONS_PER_ROW = 3
 -- Variables.
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
-local raids = {
-    -- Classic raids:
+local classicRaids = {
     [249] = "Onyxia's Lair",
     [409] = "Molten Core",
     [309] = "Zul'Gurub",
@@ -20,7 +19,8 @@ local raids = {
     [509] = "AQ20",
     [531] = "AQ40",
     [533] = "Naxxramas",
-    -- The Burning Crusade raids:
+}
+local tbcRaids = {
     [532] = "Karazhan",
     [544] = "Magtheridon's Lair",
     [565] = "Gruul's Lair",
@@ -94,13 +94,13 @@ local function initSlash()
 end
 
 -- Initializes all checkboxes.
-local function initCheckButtons()
+local function initCheckButtons(yStart, raidTable)
     local index = 1
-    for k, v in pairs(raids) do
+    for k, v in pairs(raidTable) do
         -- Checkbuttons.
         local checkButton = CreateFrame("CheckButton", nil, AutoLoggerClassicFrame, "UICheckButtonTemplate")
         local x = X_START + X_SPACING * ((index - 1) % BUTTONS_PER_ROW)
-        local y = Y_SPACING * math.ceil(index / BUTTONS_PER_ROW) - 10
+        local y = yStart + Y_SPACING * math.ceil(index / BUTTONS_PER_ROW) - 10
         checkButton:SetPoint("TOPLEFT", x, y)
         checkButton:SetScript("OnClick", AutoLoggerClassicCheckButton_OnClick)
         checkButton.instance = k
@@ -118,7 +118,8 @@ end
 local function init()
     initMinimapButton()
     initSlash()
-    initCheckButtons()
+    initCheckButtons(0, tbcRaids)
+    initCheckButtons(-106, classicRaids)
     tinsert(UISpecialFrames, AutoLoggerClassicFrame:GetName())
 end
 
@@ -137,6 +138,9 @@ end
 -- Called when player clicks a checkbutton.
 function AutoLoggerClassicCheckButton_OnClick(self)
     ALCOptions.instances[self.instance] = not ALCOptions.instances[self.instance]
+    for k, v in pairs(ALCOptions.instances) do
+        print(k, v)
+    end
     toggleLogging()
 end
 
@@ -175,7 +179,7 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
                 [580] = true, -- Sunwell Plateau
             }
         end
-        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in System > Network and clear your combat log often.")
+        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
     elseif event == "RAID_INSTANCE_WELCOME" then
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
