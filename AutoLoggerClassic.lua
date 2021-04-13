@@ -12,13 +12,24 @@ local BUTTONS_PER_ROW = 3
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local raids = {
+    -- Classic raids:
+    [249] = "Onyxia's Lair",
+    [409] = "Molten Core",
+    [309] = "Zul'Gurub",
+    [469] = "Blackwing Lair",
     [509] = "AQ20",
     [531] = "AQ40",
-    [469] = "Blackwing Lair",
-    [409] = "Molten Core",
     [533] = "Naxxramas",
-    [249] = "Onyxia's Lair",
-    [309] = "Zul'Gurub"
+    -- The Burning Crusade raids:
+    [532] = "Karazhan",
+    [544] = "Magtheridon's Lair",
+    [565] = "Gruul's Lair",
+    [548] = "Serpentshrine Cavern",
+    [550] = "Tempest Keep",
+    [534] = "Battle for Mount Hyjal",
+    [564] = "Black Temple",
+    [568] = "Zul'Aman",
+    [580] = "Sunwell Plateau"
 }
 
 -- Shows or hides the addon.
@@ -144,16 +155,27 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
         ALCOptions.minimapTable = ALCOptions.minimapTable or {}
         if not ALCOptions.instances then
             ALCOptions.instances = {
-                [509] = true,
-                [531] = true,
-                [469] = true,
-                [409] = true,
-                [533] = true,
-                [249] = true,
-                [309] = true
+                -- Classic raids:
+                [249] = true, -- Onyxia's Lair
+                [409] = true, -- Molten Core
+                [309] = true, -- Zul'Gurub
+                [469] = true, -- Blackwing Lair
+                [509] = true, -- Ruins of Ahn'Qiraj (AQ20)
+                [531] = true, -- Temple of Ahn'Qiraj (AQ40)
+                [533] = true, -- Naxxramas
+                -- The Burning Crusade raids:
+                [532] = true, -- Karazhan
+                [544] = true, -- Magtheridon's Lair
+                [565] = true, -- Gruul's Lair
+                [548] = true, -- Serpentshrine Cavern
+                [550] = true, -- Tempest Keep
+                [534] = true, -- Battle for Mount Hyjal
+                [564] = true, -- Black Temple
+                [568] = true, -- Zul'Aman
+                [580] = true, -- Sunwell Plateau
             }
         end
-        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in System > Network and clear your combat log often.")
+        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
     elseif event == "RAID_INSTANCE_WELCOME" then
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
