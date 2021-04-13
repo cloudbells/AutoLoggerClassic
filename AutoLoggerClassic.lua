@@ -153,7 +153,7 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
                 [309] = true
             }
         end
-        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
+        print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in System > Network and clear your combat log often.")
     elseif event == "RAID_INSTANCE_WELCOME" then
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
