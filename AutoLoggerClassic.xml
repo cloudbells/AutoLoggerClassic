@@ -5,17 +5,16 @@
             <AbsValue val="12" />
         </FontHeight>
     </FontString>
-    <Frame name="AutoLoggerClassicFrame" parent="UIParent" clampedToScreen="true" enableMouse="true" movable="true" frameStrata="DIALOG">
-        <Size x="544" y="130" />
+    <Frame name="AutoLoggerClassicFrame" parent="UIParent" inherits="BackdropTemplate" clampedToScreen="true" enableMouse="true" movable="true" frameStrata="DIALOG">
+        <KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+            <KeyValue key="backdropBorderColor" value="LEGENDARY_ORANGE_COLOR" type="global"/>
+            <KeyValue key="backdropBorderColorAlpha" value="1" type="number"/>
+        </KeyValues>
+        <Size x="574" y="234" />
         <Anchors>
             <Anchor point="CENTER" />
         </Anchors>
-        <Backdrop edgeFile="Interface/DialogFrame/UI-DialogBox-Border" bgFile="Interface\DialogFrame\UI-DialogBox-Background" inherits="BackdropTemplate">
-			<EdgeSize val="32"/>
-            <BackgroundInsets>
-                <AbsInset left="5" right="5" top="5" bottom="5" />
-            </BackgroundInsets>
-		</Backdrop>
         <Frames>
             <Button name="$parentCloseButton" inherits="UIPanelCloseButton">
                 <Anchors>
@@ -36,15 +35,20 @@
                         <Anchor point="TOP" x="0" y="-1" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentRaidsString" inherits="AutoLoggerClassicStringTemplate" text="Raids">
+                <FontString name="$parentTBCRaidsString" inherits="AutoLoggerClassicStringTemplate" text="The Burning Crusade Raids">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="20" y="-20" />
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentClassicRaidsString" inherits="AutoLoggerClassicStringTemplate" text="Classic Raids">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="20" y="-126" />
                     </Anchors>
                 </FontString>
             </Layer>
         </Layers>
         <Scripts>
-            <OnLoad>
+            <OnLoad inherit="prepend">
                 AutoLoggerClassic_OnLoad(self)
             </OnLoad>
             <OnDragStart>
