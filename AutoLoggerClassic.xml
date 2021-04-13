@@ -10,7 +10,7 @@
         <Anchors>
             <Anchor point="CENTER" />
         </Anchors>
-        <Backdrop edgeFile="Interface/DialogFrame/UI-DialogBox-Border" bgFile="Interface\DialogFrame\UI-DialogBox-Background">
+        <Backdrop edgeFile="Interface/DialogFrame/UI-DialogBox-Border" bgFile="Interface\DialogFrame\UI-DialogBox-Background" inherits="BackdropTemplate">
 			<EdgeSize val="32"/>
             <BackgroundInsets>
                 <AbsInset left="5" right="5" top="5" bottom="5" />
