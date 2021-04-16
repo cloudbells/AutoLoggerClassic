@@ -9,6 +9,7 @@ local Y_SPACING = -25
 local BUTTONS_PER_ROW = 3
 
 -- Variables.
+local hasInitialized = false -- true if init has been called.
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local raids = {
@@ -157,9 +158,11 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
     elseif event == "RAID_INSTANCE_WELCOME" then
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
-        init()
-        AutoLoggerClassicFrame:Hide()
+        if not hasInitialized then
+            init()
+            AutoLoggerClassicFrame:Hide()
+            hasInitialized = true
+        end
         toggleLogging()
-        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     end
 end
