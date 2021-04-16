@@ -9,6 +9,7 @@ local Y_SPACING = -25
 local BUTTONS_PER_ROW = 3
 
 -- Variables.
+local hasInitialized = false -- true if init has been called.
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local classicRaids = {
@@ -138,9 +139,6 @@ end
 -- Called when player clicks a checkbutton.
 function AutoLoggerClassicCheckButton_OnClick(self)
     ALCOptions.instances[self.instance] = not ALCOptions.instances[self.instance]
-    for k, v in pairs(ALCOptions.instances) do
-        print(k, v)
-    end
     toggleLogging()
 end
 
@@ -157,7 +155,7 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
     if event == "ADDON_LOADED" and ... == "AutoLoggerClassic" then
         ALCOptions = ALCOptions or {}
         ALCOptions.minimapTable = ALCOptions.minimapTable or {}
-        if not ALCOptions.instances then
+        if not ALCOptions.instances or ALCOptions.instances[532] == nil then -- Check for 532 because if player had addon already all TBC raids will be off by default.
             ALCOptions.instances = {
                 -- Classic raids:
                 [249] = true, -- Onyxia's Lair
@@ -183,9 +181,11 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
     elseif event == "RAID_INSTANCE_WELCOME" then
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
-        init()
-        AutoLoggerClassicFrame:Hide()
+        if not hasInitialized then
+            init()
+            AutoLoggerClassicFrame:Hide()
+            hasInitialized = true
+        end
         toggleLogging()
-        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     end
 end
