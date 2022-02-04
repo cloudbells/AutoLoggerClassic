@@ -32,6 +32,24 @@ local tbcRaids = {
     [568] = "Zul'Aman",
     [580] = "Sunwell Plateau"
 }
+local tbcDungeons = {
+    [269] = "The Black Morass",
+    [540] = "The Shattered Halls",
+    [542] = "The Blood Furnace",
+    [543] = "Hellfire Ramparts",
+    [545] = "The Steamvault",
+    [546] = "The Underbog",
+    [547] = "The Slave Pens",
+    [552] = "The Arcatraz",
+    [553] = "The Botanica",
+    [554] = "The Mechanar",
+    [555] = "Shadow Labyrinth",
+    [556] = "Sethekk Halls",
+    [557] = "Mana-Tombs",
+    [558] = "Auchenai Crypts",
+    [560] = "Old Hillsbrad Foothills",
+    [585] = "Magisters' Terrace"
+}
 
 -- Shows or hides the addon.
 local function toggleFrame()
@@ -120,17 +138,22 @@ local function init()
     initMinimapButton()
     initSlash()
     initCheckButtons(0, tbcRaids)
-    initCheckButtons(-106, classicRaids)
+    initCheckButtons(-106, tbcDungeons)
+    initCheckButtons(-286, classicRaids)
     tinsert(UISpecialFrames, AutoLoggerClassicFrame:GetName())
+end
+
+local function shouldLogCurrentInstance()
+    local _, instanceType, _, difficulty, _, _, _, id = GetInstanceInfo()
+    return ALCOptions.instances[id] and (instanceType == "raid" or (instanceType == "party" and difficulty == "Heroic"))
 end
 
 -- Toggles logging if player is not logging and is in the right instance.
 local function toggleLogging()
-    local id = select(8, GetInstanceInfo())
-    if not LoggingCombat() and ALCOptions.instances[id] then
+    if not LoggingCombat() and shouldLogCurrentInstance() then
         LoggingCombat(true)
         print("|cFFFFFF00AutoLoggerClassic|r: Combat logging enabled.")
-    elseif LoggingCombat() and not ALCOptions.instances[id] then
+    elseif LoggingCombat() and not shouldLogCurrentInstance() then
         LoggingCombat(false)
         print("|cFFFFFF00AutoLoggerClassic|r: Combat logging disabled.")
     end
@@ -148,6 +171,7 @@ function AutoLoggerClassic_OnLoad(self)
     self:RegisterEvent("ADDON_LOADED")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("RAID_INSTANCE_WELCOME")
+    self:RegisterEvent("UPDATE_INSTANCE_INFO")
 end
 
 -- Handles all events.
@@ -155,7 +179,7 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
     if event == "ADDON_LOADED" and ... == "AutoLoggerClassic" then
         ALCOptions = ALCOptions or {}
         ALCOptions.minimapTable = ALCOptions.minimapTable or {}
-        if not ALCOptions.instances or ALCOptions.instances[532] == nil then -- Check for 532 because if player had addon already all TBC raids will be off by default.
+        if not ALCOptions.instances or ALCOptions.instances[269] == nil then -- Check for 269 because if player had addon already all TBC heroic raids will be off by default.
             ALCOptions.instances = {
                 -- Classic raids:
                 [249] = true, -- Onyxia's Lair
@@ -175,10 +199,31 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
                 [564] = true, -- Black Temple
                 [568] = true, -- Zul'Aman
                 [580] = true, -- Sunwell Plateau
+                -- The Burning Crusade dungeons:
+                [269] = true, -- The Black Morass
+                [540] = true, -- The Shattered Halls
+                [542] = true, -- The Blood Furnace
+                [543] = true, -- Hellfire Ramparts
+                [545] = true, -- The Steamvault
+                [546] = true, -- The Underbog
+                [547] = true, -- The Slave Pens
+                [552] = true, -- The Arcatraz
+                [553] = true, -- The Botanica
+                [554] = true, -- The Mechanar
+                [555] = true, -- Shadow Labyrinth
+                [556] = true, -- Sethekk Halls
+                [557] = true, -- Mana-Tombs
+                [558] = true, -- Auchenai Crypts
+                [560] = true, -- Old Hillsbrad Foothills
+                [585] = true, -- Magisters' Terrace
             }
         end
         print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
-    elseif event == "RAID_INSTANCE_WELCOME" then
+    elseif event == "RAID_INSTANCE_WELCOME" or event == "UPDATE_INSTANCE_INFO" then
+        -- PLAYER_ENTERING_WORLD fires on dungeon entry. The difficulty value is
+        -- not available until an UPDATE_INSTANCE_INFO event fires.
+        -- On dungeon exit combat logging may be automatically disabled and the
+        -- message will not display in this case. This is not consistent.
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
         if not hasInitialized then
