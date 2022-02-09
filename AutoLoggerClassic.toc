@@ -5,6 +5,7 @@
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ALCOptions
 ## X-WoWI-ID: 25314
+## X-Curse-Project-ID: 341902
 
 # Load libraries.
 Libraries\LibStub\LibStub.lua
