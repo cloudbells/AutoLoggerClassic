@@ -1,10 +1,11 @@
-## Interface: 11306
+## Interface: 11402
 ## Title: AutoLoggerClassic
 ## Notes: Automatically triggers combat logging on and off in raids.
 ## Author: cloudbells
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ALCOptions
 ## X-WoWI-ID: 25314
+## X-Curse-Project-ID: 341902
 
 # Load libraries.
 Libraries\LibStub\LibStub.lua
