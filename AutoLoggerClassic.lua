@@ -4,7 +4,7 @@ local GetInstanceInfo, LoggingCombat = GetInstanceInfo, LoggingCombat
 
 -- UI variables.
 local X_START = 16
-local X_SPACING = 200
+local X_SPACING = 220
 local Y_SPACING = -25
 local BUTTONS_PER_ROW = 3
 
@@ -13,13 +13,11 @@ local hasInitialized = false -- true if init has been called.
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local classicRaids = {
-    [249] = "Onyxia's Lair",
     [409] = "Molten Core",
     [309] = "Zul'Gurub",
     [469] = "Blackwing Lair",
     [509] = "AQ20",
     [531] = "AQ40",
-    [533] = "Naxxramas",
 }
 local tbcRaids = {
     [532] = "Karazhan",
@@ -49,6 +47,35 @@ local tbcDungeons = {
     [558] = "Auchenai Crypts",
     [560] = "Old Hillsbrad Foothills",
     [585] = "Magisters' Terrace"
+}
+local wotlkRaids = {
+	[631] = "Icecrown Citadel",
+	[533] = "Naxxramas",
+	[249] = "Onyxia's Lair",
+	[724] = "Ruby Sanctum",
+	[616] = "The Eye of Eternity",
+	[615] = "The Obsidian Sanctum",
+	[649] = "Trial of the Crusader",
+	[603] = "Ulduar",
+	[624] = "Vault of Archavon",
+}
+local wotlkDungeons = {
+	[619] = "Ahn'kahet: The Old Kingdom",
+	[601] = "Azjol-Nerub",
+	[600] = "Drak'Tharon Keep",
+	[604] = "Gundrak",
+	[602] = "Halls of Lightning",
+	[668] = "Halls of Reflection",
+	[599] = "Halls of Stone",
+	[658] = "Pit of Saron",
+	[595] = "The Culling of Stratholme",
+	[632] = "The Forge of Souls",
+	[576] = "The Nexus",
+	[578] = "The Oculus",
+	[650] = "Trial of the Champion",
+	[574] = "Utgarde Keep",
+	[575] = "Utgarde Pinnacle",
+	[608] = "Violet Hold",
 }
 
 -- Shows or hides the addon.
@@ -137,9 +164,11 @@ end
 local function init()
     initMinimapButton()
     initSlash()
-    initCheckButtons(0, tbcRaids)
-    initCheckButtons(-106, tbcDungeons)
-    initCheckButtons(-286, classicRaids)
+	initCheckButtons(0, wotlkRaids)
+    initCheckButtons(-106, wotlkDungeons)
+    initCheckButtons(-286, tbcRaids)
+    initCheckButtons(-392, tbcDungeons)
+    initCheckButtons(-576, classicRaids)
     tinsert(UISpecialFrames, AutoLoggerClassicFrame:GetName())
 end
 
@@ -216,6 +245,33 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
                 [558] = true, -- Auchenai Crypts
                 [560] = true, -- Old Hillsbrad Foothills
                 [585] = true, -- Magisters' Terrace
+				-- Wrath of the Lich King raids:
+				[631] = true, -- Icecrown Citadel
+				[533] = true, -- Naxxramas
+				[249] = true, -- Onyxia's Lair
+				[724] = true, -- Ruby Sanctum
+				[616] = true, -- The Eye of Eternity
+				[615] = true, -- The Obsidian Sanctum
+				[649] = true, -- Trial of the Crusader
+				[603] = true, -- Ulduar
+				[624] = true, -- Vault of Archavon
+				-- Wrath of the Lich King dungeons:
+				[619] = true, -- Ahn'kahet: The Old Kingdom
+				[601] = true, -- Azjol-Nerub
+				[600] = true, -- Drak'Tharon Keep
+				[604] = true, -- Gundrak
+				[602] = true, -- Halls of Lightning
+				[668] = true, -- Halls of Reflection
+				[599] = true, -- Halls of Stone
+				[658] = true, -- Pit of Saron
+				[595] = true, -- The Culling of Stratholme
+				[632] = true, -- The Forge of Souls
+				[576] = true, -- The Nexus
+				[578] = true, -- The Oculus
+				[650] = true, -- Trial of the Champion
+				[574] = true, -- Utgarde Keep
+				[575] = true, -- Utgarde Pinnacle
+				[608] = true, -- Violet Hold
             }
         end
         print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
