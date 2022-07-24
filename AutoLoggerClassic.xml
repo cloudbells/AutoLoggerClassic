@@ -11,7 +11,7 @@
             <KeyValue key="backdropBorderColor" value="LEGENDARY_ORANGE_COLOR" type="global"/>
             <KeyValue key="backdropBorderColorAlpha" value="1" type="number"/>
         </KeyValues>
-        <Size x="594" y="424" />
+		<Size x="624" y="674" />
         <Anchors>
             <Anchor point="CENTER" />
         </Anchors>
@@ -35,19 +35,29 @@
                         <Anchor point="TOP" x="0" y="-1" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentTBCRaidsString" inherits="AutoLoggerClassicStringTemplate" text="The Burning Crusade Raids">
+				<FontString name="$parentWOTLKRaidsString" inherits="AutoLoggerClassicStringTemplate" text="The Wrath of the Lich King Raids">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="20" y="-20" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentTBCDungeonsString" inherits="AutoLoggerClassicStringTemplate" text="The Burning Crusade Dungeons (Heroics)">
+                <FontString name="$parentWOTLKDungeonsString" inherits="AutoLoggerClassicStringTemplate" text="The Wrath of the Lich King (Heroics)">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="20" y="-126" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentClassicRaidsString" inherits="AutoLoggerClassicStringTemplate" text="Classic Raids">
+                <FontString name="$parentTBCRaidsString" inherits="AutoLoggerClassicStringTemplate" text="The Burning Crusade Raids">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="20" y="-306" />
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentTBCDungeonsString" inherits="AutoLoggerClassicStringTemplate" text="The Burning Crusade Dungeons (Heroics)">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="20" y="-412" />
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentClassicRaidsString" inherits="AutoLoggerClassicStringTemplate" text="Classic Raids">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="20" y="-596" />
                     </Anchors>
                 </FontString>
             </Layer>
