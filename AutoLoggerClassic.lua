@@ -4,7 +4,7 @@ local GetInstanceInfo, LoggingCombat = GetInstanceInfo, LoggingCombat
 
 -- UI variables.
 local X_START = 16
-local X_SPACING = 200
+local X_SPACING = 230
 local Y_SPACING = -25
 local BUTTONS_PER_ROW = 3
 
@@ -13,13 +13,11 @@ local hasInitialized = false -- true if init has been called.
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local classicRaids = {
-    [249] = "Onyxia's Lair",
     [409] = "Molten Core",
     [309] = "Zul'Gurub",
     [469] = "Blackwing Lair",
     [509] = "AQ20",
-    [531] = "AQ40",
-    [533] = "Naxxramas",
+    [531] = "AQ40"
 }
 local tbcRaids = {
     [532] = "Karazhan",
@@ -49,6 +47,35 @@ local tbcDungeons = {
     [558] = "Auchenai Crypts",
     [560] = "Old Hillsbrad Foothills",
     [585] = "Magisters' Terrace"
+}
+local wotlkRaids = {
+    [533] = "Naxxramas",
+    [614] = "The Obsidian Sanctum",
+    [616] = "The Eye of Eternity",
+    [624] = "Vault of Archavon",
+    [603] = "Ulduar",
+    [649] = "Trial of the Crusader",
+    [249] = "Onyxia's Lair",
+    [631] = "Icecrown Citadel",
+    [724] = "Ruby Sanctum"
+}
+local wotlkDungeons = {
+    [574] = "Utgarde Keep",
+    [575] = "Utgarde Pinnacle",
+    [576] = "The Nexus",
+    [578] = "The Oculus",
+    [595] = "The Culling of Stratholme",
+    [599] = "Halls of Stone",
+    [600] = "Drak'Tharon Keep",
+    [601] = "Azjol-Nerub",
+    [602] = "Halls of Lightning",
+    [604] = "Gundrak",
+    [608] = "Violet Hold",
+    [619] = "Ahn'kahet: The Old Kingdom",
+    [632] = "The Forge of Souls",
+    [650] = "Trial of the Champion",
+    [658] = "Pit of Saron",
+    [668] = "Halls of Reflection"
 }
 
 -- Shows or hides the addon.
@@ -137,9 +164,11 @@ end
 local function init()
     initMinimapButton()
     initSlash()
-    initCheckButtons(0, tbcRaids)
-    initCheckButtons(-106, tbcDungeons)
-    initCheckButtons(-286, classicRaids)
+    initCheckButtons(0, wotlkRaids)
+    initCheckButtons(-106, wotlkDungeons)
+    initCheckButtons(-290, tbcRaids)
+    initCheckButtons(-400, tbcDungeons)
+    initCheckButtons(-585, classicRaids)
     tinsert(UISpecialFrames, AutoLoggerClassicFrame:GetName())
 end
 
@@ -179,56 +208,49 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
     if event == "ADDON_LOADED" and ... == "AutoLoggerClassic" then
         ALCOptions = ALCOptions or {}
         ALCOptions.minimapTable = ALCOptions.minimapTable or {}
-        if not ALCOptions.instances or ALCOptions.instances[269] == nil then -- Check for 269 because if player had addon already all TBC heroic raids will be off by default.
-            ALCOptions.instances = {
-                -- Classic raids:
-                [249] = true, -- Onyxia's Lair
-                [409] = true, -- Molten Core
-                [309] = true, -- Zul'Gurub
-                [469] = true, -- Blackwing Lair
-                [509] = true, -- Ruins of Ahn'Qiraj (AQ20)
-                [531] = true, -- Temple of Ahn'Qiraj (AQ40)
-                [533] = true, -- Naxxramas
-                -- The Burning Crusade raids:
-                [532] = true, -- Karazhan
-                [544] = true, -- Magtheridon's Lair
-                [565] = true, -- Gruul's Lair
-                [548] = true, -- Serpentshrine Cavern
-                [550] = true, -- Tempest Keep
-                [534] = true, -- Battle for Mount Hyjal
-                [564] = true, -- Black Temple
-                [568] = true, -- Zul'Aman
-                [580] = true, -- Sunwell Plateau
-                -- The Burning Crusade dungeons:
-                [269] = true, -- The Black Morass
-                [540] = true, -- The Shattered Halls
-                [542] = true, -- The Blood Furnace
-                [543] = true, -- Hellfire Ramparts
-                [545] = true, -- The Steamvault
-                [546] = true, -- The Underbog
-                [547] = true, -- The Slave Pens
-                [552] = true, -- The Arcatraz
-                [553] = true, -- The Botanica
-                [554] = true, -- The Mechanar
-                [555] = true, -- Shadow Labyrinth
-                [556] = true, -- Sethekk Halls
-                [557] = true, -- Mana-Tombs
-                [558] = true, -- Auchenai Crypts
-                [560] = true, -- Old Hillsbrad Foothills
-                [585] = true, -- Magisters' Terrace
-            }
+        if not ALCOptions.instances then
+            ALCOptions.instances = {}
+            for id in pairs(classicRaids) do
+                ALCOptions.instances[id] = true
+            end
+            for id in pairs(tbcDungeons) do
+                ALCOptions.instances[id] = true
+            end
+            for id in pairs(tbcRaids) do
+                ALCOptions.instances[id] = true
+            end
+            for id in pairs(wotlkDungeons) do
+                ALCOptions.instances[id] = true
+            end
+            for id in pairs(wotlkRaids) do
+                ALCOptions.instances[id] = true
+            end
+        else -- Shouldn't touch previous expansion's settings.
+            if ALCOptions.instances[269] == nil then -- Player had the addon already but hasn't logged in with it since Classic.
+                for id in pairs(tbcDungeons) do
+                    ALCOptions.instances[id] = true
+                end
+                for id in pairs(tbcRaids) do
+                    ALCOptions.instances[id] = true
+                end
+            end
+            if ALCOptions.instances[574] == nil then -- Player had the addon already but hasn't logged in with it since TBC.
+                for id in pairs(wotlkDungeons) do
+                    ALCOptions.instances[id] = true
+                end
+                for id in pairs(wotlkRaids) do
+                    ALCOptions.instances[id] = true
+                end
+            end
         end
         print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
     elseif event == "RAID_INSTANCE_WELCOME" or event == "UPDATE_INSTANCE_INFO" then
-        -- PLAYER_ENTERING_WORLD fires on dungeon entry. The difficulty value is
-        -- not available until an UPDATE_INSTANCE_INFO event fires.
-        -- On dungeon exit combat logging may be automatically disabled and the
-        -- message will not display in this case. This is not consistent.
+        -- PLAYER_ENTERING_WORLD fires on dungeon entry. The difficulty value is not available until an UPDATE_INSTANCE_INFO event fires.
+        -- On dungeon exit combat logging may be automatically disabled and the message will not display in this case. This is not consistent.
         toggleLogging()
     elseif event == "PLAYER_ENTERING_WORLD" then
         if not hasInitialized then
             init()
-            AutoLoggerClassicFrame:Hide()
             hasInitialized = true
         end
         toggleLogging()
