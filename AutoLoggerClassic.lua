@@ -50,7 +50,7 @@ local tbcDungeons = {
 }
 local wotlkRaids = {
     [533] = "Naxxramas",
-    [614] = "The Obsidian Sanctum",
+    [615] = "The Obsidian Sanctum",
     [616] = "The Eye of Eternity",
     [624] = "Vault of Archavon",
     [603] = "Ulduar",
@@ -70,7 +70,7 @@ local wotlkDungeons = {
     [601] = "Azjol-Nerub",
     [602] = "Halls of Lightning",
     [604] = "Gundrak",
-    [608] = "Violet Hold",
+    [608] = "The Violet Hold",
     [619] = "Ahn'kahet: The Old Kingdom",
     [632] = "The Forge of Souls",
     [650] = "Trial of the Champion",
@@ -243,6 +243,7 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
                 end
             end
         end
+        ALCOptions.instances[614] = nil -- Fix a mistake in case this toggles logging somewhere.
         print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Interface > Network and clear your combat log often.")
     elseif event == "RAID_INSTANCE_WELCOME" or event == "UPDATE_INSTANCE_INFO" then
         -- PLAYER_ENTERING_WORLD fires on dungeon entry. The difficulty value is not available until an UPDATE_INSTANCE_INFO event fires.
