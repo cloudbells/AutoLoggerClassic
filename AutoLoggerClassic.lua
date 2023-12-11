@@ -13,13 +13,16 @@ local hasInitialized = false -- true if init has been called.
 local minimapIcon = LibStub("LibDBIcon-1.0")
 local buttons = {}
 local raids = {
+    -- Classic raids:
     [509] = "AQ20",
     [531] = "AQ40",
     [469] = "Blackwing Lair",
     [409] = "Molten Core",
     [533] = "Naxxramas",
     [249] = "Onyxia's Lair",
-    [309] = "Zul'Gurub"
+    [309] = "Zul'Gurub",
+    -- Season of Discovery raids:
+    [48] = "Blackfathom Deeps"
 }
 
 -- Shows or hides the addon.
@@ -145,13 +148,16 @@ function AutoLoggerClassic_OnEvent(self, event, ...)
         ALCOptions.minimapTable = ALCOptions.minimapTable or {}
         if not ALCOptions.instances then
             ALCOptions.instances = {
-                [509] = true,
-                [531] = true,
-                [469] = true,
-                [409] = true,
-                [533] = true,
-                [249] = true,
-                [309] = true
+                -- Classic raids:
+                [509] = true, -- AQ20
+                [531] = true, -- AQ40
+                [469] = true, -- Blackwing Lair
+                [409] = true, -- Molten Core
+                [533] = true, -- Naxxramas
+                [249] = true, -- Onyxia's Lair
+                [309] = true, -- Zul'Gurub
+                -- Season of Discovery raids:
+                [48] = true, -- Blackfathom Deeps
             }
         end
         print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in System > Network and clear your combat log often.")
