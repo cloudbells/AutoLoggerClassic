@@ -147,7 +147,7 @@ function ns:InitMainFrame()
     local size = titleFrame:GetHeight() - 1
     closeButton:SetSize(size, size)
     local texture = closeButton:CreateTexture(nil, "ARTWORK")
-    texture:SetTexture("Interface/Addons/ClassicGuideMaker/Media/CloseButton")
+    texture:SetTexture("Interface/Addons/AutoLoggerClassic/Media/CloseButton")
     texture:SetAllPoints()
     closeButton.texture = texture
     closeButton:SetPoint("TOPRIGHT")
