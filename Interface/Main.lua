@@ -24,25 +24,34 @@ end
 
 -- Called when a check button is clicked.
 local function CheckButton_OnClick(self)
-    ALCOptions.instances[self.instance] =
-        not ALCOptions.instances[self.instance]
+    ALCOptions.instances[self.instance] = not ALCOptions.instances[self.instance]
     ns:ToggleLogging()
 end
 
 -- Called when the close button is clicked.
-local function CloseButton_OnClick() ns:ToggleFrame() end
+local function CloseButton_OnClick()
+    ns:ToggleFrame()
+end
 
 -- Called when the mouse is down on the frame.
-local function MainFrame_OnMouseDown(self) mainFrame:StartMoving() end
+local function MainFrame_OnMouseDown(self)
+    mainFrame:StartMoving()
+end
 
 -- Called when the mouse has been released from the frame.
-local function MainFrame_OnMouseUp(self) mainFrame:StopMovingOrSizing() end
+local function MainFrame_OnMouseUp(self)
+    mainFrame:StopMovingOrSizing()
+end
 
 -- Called when the main frame hides.
-local function MainFrame_OnHide(self) PlaySound(SOUNDKIT.IG_MAINMENU_CLOSE) end
+local function MainFrame_OnHide(self)
+    PlaySound(SOUNDKIT.IG_MAINMENU_CLOSE)
+end
 
 -- Called when the main frame shows.
-local function MainFrame_OnShow(self) PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) end
+local function MainFrame_OnShow(self)
+    PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
+end
 
 -- Initializes all checkboxes.
 local function InitCheckButtons()
@@ -54,10 +63,7 @@ local function InitCheckButtons()
         local index = 1
         for instanceID, instanceName in pairs(instanceTable) do
             -- Checkbuttons.
-            local checkButton = CUI:CreateCheckButton(mainFrame,
-                                                      "AutoLoggerClassicCheckButton" ..
-                                                          index,
-                                                      {CheckButton_OnClick},
+            local checkButton = CUI:CreateCheckButton(mainFrame, "AutoLoggerClassicCheckButton" .. index, {CheckButton_OnClick},
                                                       "Interface/Addons/AutoLoggerClassic/Media/CheckMark")
             local x = X_START + X_SPACING * ((index - 1) % BUTTONS_PER_ROW)
             local y = yStart - Y_SPACING * math.ceil(index / BUTTONS_PER_ROW)
@@ -66,8 +72,7 @@ local function InitCheckButtons()
             checkButton:SetChecked(ALCOptions.instances[instanceID])
             buttons[#buttons + 1] = checkButton
             -- Strings.
-            local string = mainFrame:CreateFontString(nil, "ARTWORK",
-                                                      fontInstance:GetName())
+            local string = mainFrame:CreateFontString(nil, "ARTWORK", fontInstance:GetName())
             string:SetPoint("LEFT", checkButton, "RIGHT", 5, 0)
             string:SetText(instanceName)
             index = index + 1
@@ -77,17 +82,14 @@ local function InitCheckButtons()
     end
 
     do
-        local raidString = mainFrame:CreateFontString(nil, "ARTWORK",
-                                                      CUI:GetFontBig():GetName())
+        local raidString = mainFrame:CreateFontString(nil, "ARTWORK", CUI:GetFontBig():GetName())
         raidString:SetText("RAIDS")
         raidString:SetPoint("TOPLEFT", 3, Y_START - 20)
         placeButtons(ns.RAIDS, Y_START - 20)
     end
 
     if (ns.DUNGEONS) then
-        local dungeonString = mainFrame:CreateFontString(nil, "ARTWORK",
-                                                         CUI:GetFontBig()
-                                                             :GetName())
+        local dungeonString = mainFrame:CreateFontString(nil, "ARTWORK", CUI:GetFontBig():GetName())
         dungeonString:SetText("DUNGEONS")
         dungeonString:SetPoint("TOPLEFT", 3, yNext - DUNGEON_RAID_SPACING)
         placeButtons(ns.DUNGEONS, yNext - DUNGEON_RAID_SPACING)
@@ -112,7 +114,7 @@ function ns:InitMainFrame()
 
     if ns:IsClassic() then
         if ns:IsSoD() then
-            mainFrame:SetSize(540, 112)
+            mainFrame:SetSize(556, 112)
         else
             mainFrame:SetSize(540, 112)
         end
@@ -121,8 +123,7 @@ function ns:InitMainFrame()
     end
 
     -- Title mainFrame.
-    local titleFrame = CreateFrame("Frame", "AutoLoggerClassicTitleFrame",
-                                   mainFrame)
+    local titleFrame = CreateFrame("Frame", "AutoLoggerClassicTitleFrame", mainFrame)
     titleFrame:SetPoint("TOPLEFT")
     titleFrame:SetPoint("TOPRIGHT")
     titleFrame:SetSize(1, 20)
@@ -132,15 +133,13 @@ function ns:InitMainFrame()
     fontInstance:SetJustifyH("LEFT")
 
     -- Title text.
-    local title = titleFrame:CreateFontString(nil, "BACKGROUND",
-                                              fontInstance:GetName())
+    local title = titleFrame:CreateFontString(nil, "BACKGROUND", fontInstance:GetName())
     title:SetText("AutoLoggerClassic")
     title:SetPoint("LEFT", 4, 0)
     titleFrame.title = title
 
     -- Close button.
-    local closeButton = CreateFrame("Button", "AutoLoggerClassicCloseButton",
-                                    titleFrame)
+    local closeButton = CreateFrame("Button", "AutoLoggerClassicCloseButton", titleFrame)
     CUI:ApplyTemplate(closeButton, CUI.templates.HighlightFrameTemplate)
     CUI:ApplyTemplate(closeButton, CUI.templates.PushableFrameTemplate)
     CUI:ApplyTemplate(closeButton, CUI.templates.BorderedFrameTemplate)

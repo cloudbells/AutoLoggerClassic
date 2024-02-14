@@ -12,8 +12,7 @@ local function ToggleMinimapButton()
     ALCOptions.minimapTable.hide = not ALCOptions.minimapTable.hide
     if ALCOptions.minimapTable.hide then
         minimapButton:Hide("AutoLoggerClassic")
-        print(
-            "|cFFFFFF00AutoLoggerClassic:|r Minimap button hidden. Type /alc minimap to show it again.")
+        print("|cFFFFFF00AutoLoggerClassic:|r Minimap button hidden. Type /alc minimap to show it again.")
     else
         minimapButton:Show("AutoLoggerClassic")
     end
@@ -21,27 +20,28 @@ end
 
 -- Initializes the minimap button.
 local function InitMinimapButton()
-    local obj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject(
-                    "AutoLoggerClassic", {
-            type = "launcher",
-            text = "AutoLoggerClassic",
-            icon = "Interface/ICONS/Trade_Engineering",
-            OnClick = function(self, button)
-                if button == "LeftButton" then
-                    ns:ToggleFrame()
-                elseif button == "RightButton" then
-                    ToggleMinimapButton()
-                end
-            end,
-            OnEnter = function(self)
-                GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-                GameTooltip:AddLine("|cFFFFFFFFAutoLoggerClassic|r")
-                GameTooltip:AddLine("Left click to open options.")
-                GameTooltip:AddLine("Right click to hide this minimap button.")
-                GameTooltip:Show()
-            end,
-            OnLeave = function(self) GameTooltip:Hide() end
-        })
+    local obj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("AutoLoggerClassic", {
+        type = "launcher",
+        text = "AutoLoggerClassic",
+        icon = "Interface/ICONS/Trade_Engineering",
+        OnClick = function(self, button)
+            if button == "LeftButton" then
+                ns:ToggleFrame()
+            elseif button == "RightButton" then
+                ToggleMinimapButton()
+            end
+        end,
+        OnEnter = function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:AddLine("|cFFFFFFFFAutoLoggerClassic|r")
+            GameTooltip:AddLine("Left click to open options.")
+            GameTooltip:AddLine("Right click to hide this minimap button.")
+            GameTooltip:Show()
+        end,
+        OnLeave = function(self)
+            GameTooltip:Hide()
+        end,
+    })
     minimapButton:Register("AutoLoggerClassic", obj, ALCOptions.minimapTable)
 end
 
@@ -87,10 +87,14 @@ function ns:ToggleLogging()
 end
 
 -- Called when entering a raid.
-function ns:OnRaidInstanceWelcome() ns:ToggleLogging() end
+function ns:OnRaidInstanceWelcome()
+    ns:ToggleLogging()
+end
 
 -- Called when most game data is available.
-function ns:OnPlayerEnteringWorld() ns:ToggleLogging() end
+function ns:OnPlayerEnteringWorld()
+    ns:ToggleLogging()
+end
 
 -- Called on ADDON_LOADED.
 function ns:OnAddonLoaded(addonName)
