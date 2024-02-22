@@ -70,6 +70,13 @@ local function LoadVariables()
             ALCOptions.instances[instanceID] = true
         end
     end
+    
+    -- Default new raids to true and dungeons to false.
+    for instanceID in pairs(ns.RAIDS) do
+        if ALCOptions.instances[instanceID] == nil then
+            ALCOptions.instances[instanceID] = true
+        end
+    end
 end
 
 -- Toggles logging if player is not logging and is in the right instance.
