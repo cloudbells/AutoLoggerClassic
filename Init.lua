@@ -69,12 +69,12 @@ local function LoadVariables()
         for instanceID in pairs(ns.RAIDS) do
             ALCOptions.instances[instanceID] = true
         end
-    end
-    
-    -- Default new raids to true and dungeons to false.
-    for instanceID in pairs(ns.RAIDS) do
-        if ALCOptions.instances[instanceID] == nil then
-            ALCOptions.instances[instanceID] = true
+    else
+        -- Default new raids to true and dungeons to false.
+        for instanceID in pairs(ns.RAIDS) do
+            if ALCOptions.instances[instanceID] == nil then
+                ALCOptions.instances[instanceID] = true
+            end
         end
     end
 end
