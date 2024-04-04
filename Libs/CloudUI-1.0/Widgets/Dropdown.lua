@@ -200,7 +200,7 @@ end
 -- Sets the given frame's value at the given index.
 local function SetValueAt(self, index, value)
     assert(index and type(index) == "number" and index > 0, "SetValueAt: 'index' needs to be a non-negative number")
-    assert(text, "SetValueAt: 'value' can't be nil")
+    assert(value, "SetValueAt: 'value' can't be nil")
     if self.values[index] then
         self.values[index] = value
     end

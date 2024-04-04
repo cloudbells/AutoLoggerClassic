@@ -17,5 +17,5 @@ end
 
 -- Returns true if the game version is Season of Dicovery.
 function ns:IsSoD()
-    return C_Seasons.GetActiveSeason() == Enum.SeasonID.Placeholder
+    return Enum.SeasonID.SeasonOfDiscovery and C_Seasons.GetActiveSeason() == Enum.SeasonID.SeasonOfDiscovery
 end

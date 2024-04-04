@@ -1,6 +1,8 @@
 local _, ns = ...
 
-if ns:IsClassic() then
+if ns:IsSoD() then
+    ns.RAIDS = {[48] = "Blackfathom Deeps", [90] = "Gnomeregan", [109] = "Sunken Temple"}
+elseif ns:IsClassic() then
     ns.RAIDS = {
         [509] = "AQ20",
         [531] = "AQ40",
@@ -10,10 +12,6 @@ if ns:IsClassic() then
         [249] = "Onyxia's Lair",
         [309] = "Zul'Gurub",
     }
-    if ns:IsSoD() then
-        ns.RAIDS[48] = "Blackfathom Deeps"
-        ns.RAIDS[90] = "Gnomeregan"
-    end
 elseif ns:IsTBC() then
     ns.RAIDS = {
         [509] = "AQ20",

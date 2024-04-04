@@ -112,12 +112,10 @@ function ns:InitMainFrame()
     mainFrame:HookScript("OnShow", MainFrame_OnShow)
     tinsert(UISpecialFrames, "AutoLoggerClassicFrame")
 
-    if ns:IsClassic() then
-        if ns:IsSoD() then
-            mainFrame:SetSize(556, 112)
-        else
-            mainFrame:SetSize(540, 112)
-        end
+    if ns:IsSoD() then
+        mainFrame:SetSize(552, 72)
+    elseif ns:IsClassic() then
+        mainFrame:SetSize(540, 112)
     elseif ns:IsWOTLK() or ns:IsTBC() then
         mainFrame:SetSize(630, 472)
     end
@@ -135,7 +133,7 @@ function ns:InitMainFrame()
     -- Title text.
     local title = titleFrame:CreateFontString(nil, "BACKGROUND", fontInstance:GetName())
     title:SetText("AutoLoggerClassic")
-    title:SetPoint("LEFT", 4, 0)
+    title:SetPoint("LEFT", 2, 0)
     titleFrame.title = title
 
     -- Close button.
@@ -143,7 +141,7 @@ function ns:InitMainFrame()
     CUI:ApplyTemplate(closeButton, CUI.templates.HighlightFrameTemplate)
     CUI:ApplyTemplate(closeButton, CUI.templates.PushableFrameTemplate)
     CUI:ApplyTemplate(closeButton, CUI.templates.BorderedFrameTemplate)
-    local size = titleFrame:GetHeight() - 1
+    local size = titleFrame:GetHeight() - 6
     closeButton:SetSize(size, size)
     local texture = closeButton:CreateTexture(nil, "ARTWORK")
     texture:SetTexture("Interface/Addons/AutoLoggerClassic/Media/CloseButton")
