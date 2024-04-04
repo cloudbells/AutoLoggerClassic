@@ -13,6 +13,7 @@ if ns:IsClassic() then
     if ns:IsSoD() then
         ns.RAIDS[48] = "Blackfathom Deeps"
         ns.RAIDS[90] = "Gnomeregan"
+        ns.RAIDS[109] = "Sunken Temple"
     end
 elseif ns:IsTBC() then
     ns.RAIDS = {
