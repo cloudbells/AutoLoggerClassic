@@ -4,8 +4,8 @@
 ## Author: cloudbells
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ALCOptions
-## X-WoWI-ID: 25314
 ## X-Curse-Project-ID: 341902
+## X-WoWI-ID: 25314
 
 # Load libraries.
 Libs/LibStub/LibStub.lua
