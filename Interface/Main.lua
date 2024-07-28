@@ -113,7 +113,7 @@ function ns:InitMainFrame()
     tinsert(UISpecialFrames, "AutoLoggerClassicFrame")
 
     if ns:IsSoD() then
-        mainFrame:SetSize(552, 72)
+        mainFrame:SetSize(552, 132)
     elseif ns:IsClassic() then
         mainFrame:SetSize(540, 112)
     elseif ns:IsWOTLK() or ns:IsTBC() then

@@ -1,7 +1,18 @@
 local _, ns = ...
 
 if ns:IsSoD() then
-    ns.RAIDS = {[48] = "Blackfathom Deeps", [90] = "Gnomeregan", [109] = "Sunken Temple"}
+    ns.RAIDS = {
+        [48] = "Blackfathom Deeps",
+        [90] = "Gnomeregan",
+        [109] = "Sunken Temple",
+        [509] = "AQ20",
+        [531] = "AQ40",
+        [469] = "Blackwing Lair",
+        [409] = "Molten Core",
+        [533] = "Naxxramas",
+        [249] = "Onyxia's Lair",
+        [309] = "Zul'Gurub"
+    }
 elseif ns:IsClassic() then
     ns.RAIDS = {
         [509] = "AQ20",
@@ -10,7 +21,7 @@ elseif ns:IsClassic() then
         [409] = "Molten Core",
         [533] = "Naxxramas",
         [249] = "Onyxia's Lair",
-        [309] = "Zul'Gurub",
+        [309] = "Zul'Gurub"
     }
 elseif ns:IsTBC() then
     ns.RAIDS = {
@@ -29,7 +40,7 @@ elseif ns:IsTBC() then
         [534] = "Battle for Mount Hyjal",
         [564] = "Black Temple",
         [568] = "Zul'Aman",
-        [580] = "Sunwell Plateau",
+        [580] = "Sunwell Plateau"
     }
     ns.DUNGEONS = {
         [269] = "The Black Morass",
@@ -47,7 +58,7 @@ elseif ns:IsTBC() then
         [557] = "Mana-Tombs",
         [558] = "Auchenai Crypts",
         [560] = "Old Hillsbrad Foothills",
-        [585] = "Magisters' Terrace",
+        [585] = "Magisters' Terrace"
     }
 elseif ns:IsWOTLK() then
     ns.RAIDS = {
@@ -73,7 +84,7 @@ elseif ns:IsWOTLK() then
         [649] = "Trial of the Crusader",
         [249] = "Onyxia's Lair",
         [631] = "Icecrown Citadel",
-        [724] = "Ruby Sanctum",
+        [724] = "Ruby Sanctum"
     }
     ns.DUNGEONS = {
         [269] = "The Black Morass",
@@ -107,6 +118,6 @@ elseif ns:IsWOTLK() then
         [632] = "The Forge of Souls",
         [650] = "Trial of the Champion",
         [658] = "Pit of Saron",
-        [668] = "Halls of Reflection",
+        [668] = "Halls of Reflection"
     }
 end
