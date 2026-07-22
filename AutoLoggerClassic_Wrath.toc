@@ -3,9 +3,21 @@
 ## Notes: Automatically triggers combat logging on and off in raids.
 ## Author: cloudbells
 ## Version: @project-version@
+## Category: Combat
+## Category-deDE: Kampf
+## Category-esES: Combate
+## Category-esMX: Combate
+## Category-frFR: Combat
+## Category-itIT: Combattimento
+## Category-koKR: 전투
+## Category-ptBR: Combate
+## Category-ruRU: Бой
+## Category-zhCN: 战斗
+## Category-zhTW: 戰鬥
+## IconTexture: Interface\ICONS\Trade_Engineering
 ## SavedVariablesPerCharacter: ALCOptions
-## X-WoWI-ID: 25314
 ## X-Curse-Project-ID: 341902
+## X-WoWI-ID: 25314
 
 # Load libraries.
 Libs/LibStub/LibStub.lua
