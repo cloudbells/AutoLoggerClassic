@@ -66,6 +66,12 @@ local function InitSlash()
         elseif msg == "loginmessage" then
             ToggleLoginMessage()
             return
+        elseif msg == "help" then
+            print("|cFFFFFF00AutoLoggerClassic:|r\n"
+                    .. "/alc or /autologgerclassic both work to toggle the addon.\n"
+                    .. "/alc minimap toggles the minimap button.\n"
+                    .. "/alc loginmessage toggles the login message.")
+            return
         end
         ns:ToggleFrame()
     end
@@ -125,7 +131,7 @@ function ns:OnAddonLoaded(addonName)
         InitSlash()
         ns:InitMainFrame()
         if not ALCOptionsGlobal.disableLoginMessage then
-            print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Options > Network and clear your combat log often.")
+            print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Type /fg help for commands. Remember to enable advanced combat logging in Options > Network and clear your combat log often.")
         end
         -- LoggingCombat() can return nil seemingly randomly
         isLogging = LoggingCombat() or false
