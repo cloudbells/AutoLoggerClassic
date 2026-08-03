@@ -18,6 +18,15 @@ local function ToggleMinimapButton()
     end
 end
 
+local function ToggleLoginMessage()
+    ALCOptionsGlobal.disableLoginMessage = not ALCOptionsGlobal.disableLoginMessage
+    if ALCOptionsGlobal.disableLoginMessage then
+        print("|cFFFFFF00AutoLoggerClassic:|r Login message disabled. Type /alc loginmessage to show it again.")
+    else
+        print("|cFFFFFF00AutoLoggerClassic:|r Login message enabled.")
+    end
+end
+
 -- Initializes the minimap button.
 local function InitMinimapButton()
     local obj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("AutoLoggerClassic", {
@@ -54,6 +63,9 @@ local function InitSlash()
         if msg == "minimap" then
             ToggleMinimapButton()
             return
+        elseif msg == "loginmessage" then
+            ToggleLoginMessage()
+            return
         end
         ns:ToggleFrame()
     end
@@ -62,6 +74,7 @@ end
 -- Loads all saved variables.
 local function LoadVariables()
     ALCOptions = ALCOptions or {}
+    ALCOptionsGlobal = ALCOptionsGlobal or {}
     ALCOptions.minimapTable = ALCOptions.minimapTable or {}
     if not ALCOptions.instances then
         ALCOptions.instances = {}
@@ -77,6 +90,7 @@ local function LoadVariables()
             end
         end
     end
+    ALCOptionsGlobal.disableLoginMessage = ALCOptionsGlobal.disableLoginMessage == nil and false or ALCOptionsGlobal.disableLoginMessage
 end
 
 -- Toggles logging if player is not logging and is in the right instance.
@@ -110,8 +124,9 @@ function ns:OnAddonLoaded(addonName)
         InitMinimapButton()
         InitSlash()
         ns:InitMainFrame()
-        print(
-            "|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Options > Network and clear your combat log often.")
+        if not ALCOptionsGlobal.disableLoginMessage then
+            print("|cFFFFFF00AutoLoggerClassic|r loaded! Type /alc to toggle options. Remember to enable advanced combat logging in Options > Network and clear your combat log often.")
+        end
         -- LoggingCombat() can return nil seemingly randomly
         isLogging = LoggingCombat() or false
     end

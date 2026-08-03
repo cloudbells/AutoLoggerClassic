@@ -15,6 +15,7 @@
 ## Category-zhCN: 战斗
 ## Category-zhTW: 戰鬥
 ## IconTexture: Interface\ICONS\Trade_Engineering
+## SavedVariables: ALCOptionsGlobal
 ## SavedVariablesPerCharacter: ALCOptions
 ## X-Curse-Project-ID: 341902
 ## X-WoWI-ID: 25314
